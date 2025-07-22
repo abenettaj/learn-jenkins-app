@@ -38,7 +38,11 @@ pipeline {
             }
 
             steps {
-                sh 'npx playwright test'
+                sh '''
+                    npm install serve
+                    node_modules\.bin\serve -s build
+                    npx playwright test
+                '''
             }
         }
 
@@ -46,7 +50,7 @@ pipeline {
 
     post {
         always {
-            junit 'test-results/junit.xml'
+            junit 'jest-results/junit.xml'
         }
     }
 
